@@ -1,0 +1,12 @@
+@function get-color($color-name) {
+    @return map-get($colors, $color-name);
+  }
+  
+  @function get-font-size($size-name) {
+    @return map-get($font-sizes, $size-name);
+  }
+  
+  @function spacing($factor) {
+    @return $spacing * $factor;
+  }
+  

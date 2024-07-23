@@ -1,0 +1,84 @@
+@import "_colors";
+@import "_functions";
+
+$font-sizes: (
+  base: 16px,
+  h1: 2.5rem,
+  h2: 2rem,
+  h3: 1.75rem,
+  h4: 1.5rem,
+  h5: 1.25rem,
+  h6: 1rem,
+);
+
+$spacing: 1rem;
+
+@mixin font-size($size) {
+  font-size: get-font-size($size);
+}
+
+@mixin margin($direction, $size) {
+  @if $direction == "all" {
+    margin: $size !important;
+  } @else {
+    margin-#{$direction}: $size !important;
+  }
+}
+
+@mixin padding($direction, $size) {
+  @if $direction == "all" {
+    padding: $size !important;
+  } @else {
+    padding-#{$direction}: $size !important;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin generate-margins($directions, $sizes) {
+  @each $direction in $directions {
+    @each $size in $sizes {
+      .m-#{$direction}-#{$size} {
+        @include margin($direction, spacing($size));
+      }
+    }
+  }
+}
+
+@mixin generate-paddings($directions, $sizes) {
+  @each $direction in $directions {
+    @each $size in $sizes {
+      .p-#{$direction}-#{$size} {
+        @include padding($direction, spacing($size));
+      }
+    }
+  }
+}
+
+$directions: all, top, bottom, left, right;
+$sizes: 0, 1, 2, 3, 4, 5;
+
+@include generate-margins($directions, $sizes);
+@include generate-paddings($directions, $sizes);
+
+.center {
+  @include flex-center;
+}
+
+button{
+  background-color: get-color(primary);
+  color: get-color(accent);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  @include generate-paddings(all, 3);
+
+  &:hover {
+    background-color: darken(get-color(primary), 10%);
+  }
+}
